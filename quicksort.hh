@@ -10,11 +10,11 @@ void quicksort(int tab[], int tab_size, int first)
         int right = tab_size - 2;
         int left = first;
         int tmp;
-        int pivot = (left + tab_size) / 2;
+        int pivot = (first + tab_size) / 2;
         tmp = tab[tab_size - 1];
         tab[tab_size - 1] = tab[pivot];
         tab[pivot] = tmp;
-        while (left < right)
+        while (left <= right)
         {
             while (tab[right] > tab[tab_size - 1])
             {
@@ -31,8 +31,8 @@ void quicksort(int tab[], int tab_size, int first)
             left++;
         }
         tmp = tab[tab_size - 1];
-        tab[tab_size - 1] = tab[pivot];
-        tab[pivot] = tmp;
+        tab[tab_size - 1] = tab[left];
+        tab[left] = tmp;
         quicksort(tab, right+1, first);
         quicksort(tab, tab_size, left);
     }
