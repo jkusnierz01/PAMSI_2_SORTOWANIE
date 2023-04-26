@@ -21,7 +21,7 @@ int main()
        cout << tab2[z] << " "; 
     } 
     cout<<endl;
-    quicksort(tab3, n);  
+    quicksort(tab3, n, 0);  
     for(int z =0;z<n;z++)
     {
        cout << tab3[z] << " "; 

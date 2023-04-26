@@ -3,13 +3,14 @@
 #include <iostream>
 using namespace std;
 
-void quicksort(int tab[], int tab_size, int left)
+void quicksort(int tab[], int tab_size, int first)
 {
     if (tab_size > 1)
     {
-        int right;
+        int right = tab_size - 2;
+        int left = first;
         int tmp;
-        int pivot = tab_size / 2;
+        int pivot = (left + tab_size) / 2;
         tmp = tab[tab_size - 1];
         tab[tab_size - 1] = tab[pivot];
         tab[pivot] = tmp;
@@ -32,8 +33,8 @@ void quicksort(int tab[], int tab_size, int left)
         tmp = tab[tab_size - 1];
         tab[tab_size - 1] = tab[pivot];
         tab[pivot] = tmp;
-        quicksort(tab, pivot , 0);
-        quicksort(tab, tab_size - pivot - 1, pivot);
+        quicksort(tab, right+1, first);
+        quicksort(tab, tab_size, left);
     }
 }
 
