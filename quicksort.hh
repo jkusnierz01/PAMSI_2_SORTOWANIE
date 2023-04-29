@@ -3,39 +3,34 @@
 #include <iostream>
 using namespace std;
 
-void quicksort(int tab[], int tab_size, int first)
+
+void quicksort(float tab[], int tab_size, int first)
 {
-    if (tab_size > 1)
+    float pivot = tab[(first + tab_size-1) / 2];
+    int left = first, right = tab_size - 1;
+    float tmp;
+    while (left <= right)
     {
-        int right = tab_size - 2;
-        int left = first;
-        int tmp;
-        int pivot = (first + tab_size) / 2;
-        tmp = tab[tab_size - 1];
-        tab[tab_size - 1] = tab[pivot];
-        tab[pivot] = tmp;
-        while (left <= right)
+        while (tab[left] < pivot)
         {
-            while (tab[right] > tab[tab_size - 1])
-            {
-                right--;
-            }
-            while (tab[left] < tab[tab_size - 1])
-            {
-                left++;
-            }
+            left++;
+        }
+        while (tab[right] > pivot)
+        {
+            right--;
+        }
+        if (left <= right)
+        {
             tmp = tab[left];
             tab[left] = tab[right];
             tab[right] = tmp;
-            right--;
             left++;
+            right--;
         }
-        tmp = tab[tab_size - 1];
-        tab[tab_size - 1] = tab[left];
-        tab[left] = tmp;
-        quicksort(tab, right+1, first);
-        quicksort(tab, tab_size, left);
     }
+    if (first < right)
+        quicksort(tab, right + 1, first);
+    if (left < tab_size - 1)
+        quicksort(tab, tab_size,left );
 }
-
 #endif

@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-void heapdown(int tab[], int tab_size)
+void heapdown(float tab[], int tab_size)
 {
     int iterator1 = 0;
     int iterator2 = 1;
@@ -12,7 +12,7 @@ void heapdown(int tab[], int tab_size)
         if(tab[iterator1]<tab[iterator2])
         {
 
-            int tmp = tab[iterator2];
+            float tmp = tab[iterator2];
             tab[iterator2] = tab[iterator1];
             tab[iterator1] = tmp;   
             iterator1=0;
@@ -27,14 +27,14 @@ void heapdown(int tab[], int tab_size)
     } 
 }
 
-void sort(int tab[], int tab_size)
+void sort(float tab[], int tab_size)
 {
-    int tab2[tab_size];
+    float tab2[tab_size];
     int iterator = tab_size;
     for(int i=tab_size;i>1;i--)
     {
     heapdown(tab,i);
-    int tmp = tab[0];
+    float tmp = tab[0];
     tab[0] = tab[i - 1];
     tab[i - 1] = tmp;
     tab2[iterator] = tmp;

@@ -3,14 +3,14 @@
 #include <iostream>
 using namespace std;
 
-void merge(int left_array[], int right_array[], int main_array[], int left_size, int right_size, int main_size);
-void merge_sort(int tab[], int rozmiar_tab)
+void merge(float left_array[], float right_array[], float main_array[], int left_size, int right_size, int main_size);
+void merge_sort(float tab[], int rozmiar_tab)
 {
     if (rozmiar_tab > 1) // sprawdzenie czy nasza tablica zostala podzielona juz na najmniejsza zawierajaca 1 element
     {
         int middle = rozmiar_tab / 2;      // dzielimy tablice na polowe
-        int *left_array = new int[middle]; // tworzymy dwie dynamicznie zaalokowane podtablice - lewa i prawa - wynikajace z podzielenia naszej glownej tablicy
-        int *right_array = new int[rozmiar_tab - middle];
+        float *left_array = new float[middle]; // tworzymy dwie dynamicznie zaalokowane podtablice - lewa i prawa - wynikajace z podzielenia naszej glownej tablicy
+        float *right_array = new float[rozmiar_tab - middle];
         int j = 0;
         for (int i = 0; i < rozmiar_tab; i++) // przypisujemy do podtablic wartosci
         {
@@ -32,9 +32,9 @@ void merge_sort(int tab[], int rozmiar_tab)
     }
 }
 
-void merge(int left_array[], int right_array[], int main_array[], int left_size, int right_size, int main_size)
+void merge(float left_array[], float right_array[], float main_array[], int left_size, int right_size, int main_size)
 {
-    int tmp[main_size];
+    float tmp[main_size];
     int main_iterator = 0;
     int left_iterator = 0;
     int right_iterator = 0;
