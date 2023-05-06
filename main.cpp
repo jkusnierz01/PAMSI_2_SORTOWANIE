@@ -183,28 +183,28 @@ int main()
                 nazwa_pliku_wyjsciowego.append(to_string(RozmiarTablicyRankingow));
                 nazwa_pliku_wyjsciowego.append(".tsv");
             }
-            // else if (n == 1)
-            // {
-            //     auto start_time = std::chrono::high_resolution_clock::now();
-            //     merge_sort(TablicaRankingWskaznik, RozmiarTablicyRankingow);
-            //     auto end_time = std::chrono::high_resolution_clock::now();
-            //     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-            //     cout << "Posortowanie za pomoca MERGESORT zajelo: " << duration.count() << "ms, bazy danych wielkosci: " << RozmiarTablicyRankingow << " elementow" << endl;
-            //     nazwa_pliku_wyjsciowego = sort_method[n];
-            //     nazwa_pliku_wyjsciowego.append(to_string(RozmiarTablicyRankingow));
-            //     nazwa_pliku_wyjsciowego.append(".tsv");
-            // }
-            // else if (n == 2)
-            // {
-            //     auto start_time = std::chrono::high_resolution_clock::now();
-            //     sort(TablicaRankingWskaznik, RozmiarTablicyRankingow);
-            //     auto end_time = std::chrono::high_resolution_clock::now();
-            //     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-            //     cout << "Posortowanie za pomoca HEAPSORT zajelo: " << duration.count() << "ms, bazy danych wielkosci: " << RozmiarTablicyRankingow << " elementow" << endl;
-            //     nazwa_pliku_wyjsciowego = sort_method[n];
-            //     nazwa_pliku_wyjsciowego.append(to_string(RozmiarTablicyRankingow));
-            //     nazwa_pliku_wyjsciowego.append(".tsv");
-            // }
+            else if (n == 1)
+            {
+                auto start_time = std::chrono::high_resolution_clock::now();
+                mergeSort(TablicaRankingWskaznik, RozmiarTablicyRankingow);
+                auto end_time = std::chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+                cout << "Posortowanie za pomoca MERGESORT zajelo: " << duration.count() << "ms, bazy danych wielkosci: " << RozmiarTablicyRankingow << " elementow" << endl;
+                nazwa_pliku_wyjsciowego = sort_method[n];
+                nazwa_pliku_wyjsciowego.append(to_string(RozmiarTablicyRankingow));
+                nazwa_pliku_wyjsciowego.append(".tsv");
+            }
+            else if (n == 2)
+            {
+                auto start_time = std::chrono::high_resolution_clock::now();
+                heapSort(TablicaRankingWskaznik, RozmiarTablicyRankingow);
+                auto end_time = std::chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+                cout << "Posortowanie za pomoca HEAPSORT zajelo: " << duration.count() << "ms, bazy danych wielkosci: " << RozmiarTablicyRankingow << " elementow" << endl;
+                nazwa_pliku_wyjsciowego = sort_method[n];
+                nazwa_pliku_wyjsciowego.append(to_string(RozmiarTablicyRankingow));
+                nazwa_pliku_wyjsciowego.append(".tsv");
+            }
             if (!OutputFileCreation(TablicaRankingWskaznik, TablicaTytulowWskaznik, RozmiarTablicyRankingow, RozmiarTablicyTytulow, nazwa_pliku_wyjsciowego))
             {
                 cout << "ERROR DURING RANKING TAB CREATION" << endl;
@@ -213,28 +213,6 @@ int main()
             delete[] TablicaRankingWskaznik;
         }
     }
-
-    // int n = 8;
-    // int tab[8] = {14,1,2,5,4,9,6,6};
-    // int tab2[8] = {12,5,2,1,4,3,6,6};
-    // int tab3[8] = {10,5,8,1,4,2,9,7};
-    // merge_sort(tab,n);
-    // for(int z =0;z<n;z++)
-    // {
-    //    cout << tab[z] << " ";
-    // }
-    // cout<<endl;
-    // sort(tab2,n);
-    // for(int z =0;z<n;z++)
-    // {
-    //    cout << tab2[z] << " ";
-    // }
-    // cout<<endl;
-    // quicksort(tab3, n, 0);
-    // for(int z =0;z<n;z++)
-    // {
-    //    cout << tab3[z] << " ";
-    // }
     delete[] TablicaTytulowWskaznik;
     return 0;
 }
