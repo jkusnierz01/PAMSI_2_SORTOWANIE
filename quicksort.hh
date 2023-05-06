@@ -1,41 +1,37 @@
 #ifndef QUICKSORT_HH
 #define QUICKSORT_HH
+#include "struct.hh"
 #include <iostream>
 using namespace std;
 
-void quicksort(int tab[], int tab_size, int first)
+
+void quicksort(ranking_elem tab[], int tab_size, int first)
 {
-    if (tab_size > 1)
+    float pivot = tab[(first + tab_size-1) / 2].ranking;
+    int left = first, right = tab_size - 1;
+    ranking_elem tmp;
+    while (left <= right)
     {
-        int right = tab_size - 2;
-        int left = first;
-        int tmp;
-        int pivot = (first + tab_size) / 2;
-        tmp = tab[tab_size - 1];
-        tab[tab_size - 1] = tab[pivot];
-        tab[pivot] = tmp;
-        while (left <= right)
+        while (tab[left].ranking < pivot)
         {
-            while (tab[right] > tab[tab_size - 1])
-            {
-                right--;
-            }
-            while (tab[left] < tab[tab_size - 1])
-            {
-                left++;
-            }
+            left++;
+        }
+        while (tab[right].ranking > pivot)
+        {
+            right--;
+        }
+        if (left <= right)
+        {
             tmp = tab[left];
             tab[left] = tab[right];
             tab[right] = tmp;
-            right--;
             left++;
+            right--;
         }
-        tmp = tab[tab_size - 1];
-        tab[tab_size - 1] = tab[left];
-        tab[left] = tmp;
-        quicksort(tab, right+1, first);
-        quicksort(tab, tab_size, left);
     }
+    if (first < right)
+        quicksort(tab, right + 1, first);
+    if (left < tab_size - 1)
+        quicksort(tab, tab_size,left );
 }
-
 #endif

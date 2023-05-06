@@ -1,16 +1,17 @@
 #ifndef MERGE_SORT_HH
 #define MERGE_SORT_HH
+#include "struct.hh"
 #include <iostream>
 using namespace std;
 
-void merge(int left_array[], int right_array[], int main_array[], int left_size, int right_size, int main_size);
-void merge_sort(int tab[], int rozmiar_tab)
+void merge(ranking_elem left_array[], ranking_elem right_array[], ranking_elem main_array[], int left_size, int right_size, int main_size);
+void merge_sort(ranking_elem tab[], int rozmiar_tab)
 {
     if (rozmiar_tab > 1) // sprawdzenie czy nasza tablica zostala podzielona juz na najmniejsza zawierajaca 1 element
     {
         int middle = rozmiar_tab / 2;      // dzielimy tablice na polowe
-        int *left_array = new int[middle]; // tworzymy dwie dynamicznie zaalokowane podtablice - lewa i prawa - wynikajace z podzielenia naszej glownej tablicy
-        int *right_array = new int[rozmiar_tab - middle];
+        ranking_elem *left_array = new ranking_elem[middle]; // tworzymy dwie dynamicznie zaalokowane podtablice - lewa i prawa - wynikajace z podzielenia naszej glownej tablicy
+        ranking_elem *right_array = new ranking_elem[rozmiar_tab - middle];
         int j = 0;
         for (int i = 0; i < rozmiar_tab; i++) // przypisujemy do podtablic wartosci
         {
@@ -32,21 +33,15 @@ void merge_sort(int tab[], int rozmiar_tab)
     }
 }
 
-void merge(int left_array[], int right_array[], int main_array[], int left_size, int right_size, int main_size)
+void merge(ranking_elem left_array[], ranking_elem right_array[], ranking_elem main_array[], int left_size, int right_size, int main_size)
 {
-    int tmp[main_size];
+    ranking_elem tmp[main_size];
     int main_iterator = 0;
     int left_iterator = 0;
     int right_iterator = 0;
     while (left_iterator < left_size && right_iterator < right_size) // dopoki sa elementy w obu naszych podtablicach
     {
-        if (left_array[left_iterator] < right_array[right_iterator]) // porownujemy je ze soba i w odpowiedniej kolejnosci dodajemy do glownej tablicy
-        {
-            tmp[main_iterator] = left_array[left_iterator];
-            main_iterator++;
-            left_iterator++;
-        }
-        else if (left_array[left_iterator] < right_array[right_iterator])
+        if (left_array[left_iterator].ranking < right_array[right_iterator].ranking) // porownujemy je ze soba i w odpowiedniej kolejnosci dodajemy do glownej tablicy
         {
             tmp[main_iterator] = left_array[left_iterator];
             main_iterator++;
