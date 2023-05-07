@@ -5,7 +5,7 @@
 #include <string>
 #include <sstream>
 
-bool CreateRankingTab(string FileName, ranking_elem *&TabPointer, int &Size) // funkcja tworzaca dynamiczna tablice
+bool CreateRankingTab(string FileName, ranking_elem *&TabPointer, int &Size, float &W_srednia) // funkcja tworzaca dynamiczna tablice
 {
     int LineNumber, t_const_number; // numer lini, w naszym otwieranym pliku tsv
     float Rating;                   // odczytana wartosc ratingu filmu dodawana do wyjsciowej tablicy
@@ -53,10 +53,12 @@ bool CreateRankingTab(string FileName, ranking_elem *&TabPointer, int &Size) // 
             t_const.erase(0, 2);
             t_const_number = stoi(t_const);
             TabPointer[LineNumber - 1].ranking = Rating;
+            W_srednia = W_srednia + Rating;
             TabPointer[LineNumber - 1].tconst = t_const_number;
         }
         LineNumber++;
     }
+    W_srednia = W_srednia / Size;
     File.close();
     return true;
 }
@@ -127,6 +129,11 @@ bool CreateTitleTab(string FileName, ranking_elem *&TitleTabPointer, int &TitleT
     return true;
 }
 
+float median(ranking_elem *&RankingTabPointer, int RatingTabSize)
+{
+    return RankingTabPointer[(RatingTabSize - 1)/2].ranking;
+}
+
 bool OutputFileCreation(ranking_elem *&RankingTabPointer, ranking_elem *&TitleTabPointer, int RatingTabSize, int TitleTabSize, string OutputFileName)
 {
     fstream plik_wyj;                        // zmienna plikowa do zapisy pliku wyjsciowego
@@ -150,6 +157,7 @@ int main()
 {
     string sort_method[3] = {"quick", "merge", "heap"};
     int data_size[5] = {10000, 100000, 500000, 1000000, 0};
+    float  WartoscSrednia, Mediana;
     int RozmiarTablicyRankingow; // rozmiar naszej dymanicznie zaalokowanej tablicy
     int RozmiarTablicyTytulow = 0;
     string method;
@@ -167,7 +175,8 @@ int main()
         {
             ranking_elem *TablicaRankingWskaznik; // wskaznika na dynamicznie zaalokowana pamiec
             nazwa_pliku_wyjsciowego.erase();
-            if (!CreateRankingTab("/Users/jedrzejkusnierz/Desktop/studia/pamsi/sortowanie - p2/PAMSI_2_SORTOWANIE/Ranking_filmow.tsv", TablicaRankingWskaznik, RozmiarTablicyRankingow))
+            WartoscSrednia = 0;
+            if (!CreateRankingTab("/Users/jedrzejkusnierz/Desktop/studia/pamsi/sortowanie - p2/PAMSI_2_SORTOWANIE/Ranking_filmow.tsv", TablicaRankingWskaznik, RozmiarTablicyRankingow, WartoscSrednia))
             {
                 cout << "ERROR DURING RANKING TAB CREATION" << endl;
                 return 0;
@@ -176,6 +185,7 @@ int main()
             {
                 auto start_time = std::chrono::high_resolution_clock::now();
                 quicksort(TablicaRankingWskaznik, RozmiarTablicyRankingow, 0);
+                Mediana = median(TablicaRankingWskaznik, RozmiarTablicyRankingow);
                 auto end_time = std::chrono::high_resolution_clock::now();
                 auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
                 cout << "Posortowanie za pomoca QUICKSORT zajelo: " << duration.count() << "ms, bazy danych wielkosci: " << RozmiarTablicyRankingow << " elementow" << endl;
@@ -212,6 +222,11 @@ int main()
             }
             delete[] TablicaRankingWskaznik;
         }
+
+        cout << endl;
+        cout << "Wartosc srednia wynosi: " << WartoscSrednia << endl;
+        cout << "Mediana wynosi: " << Mediana << endl;
+        cout << endl << endl;
     }
     delete[] TablicaTytulowWskaznik;
     return 0;
